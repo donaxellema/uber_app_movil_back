@@ -9,8 +9,8 @@ async function bootstrap() {
 
   // Configurar CORS
   app.enableCors({
-    origin: configService.get('CORS_ORIGIN')?.split(',') || '*',
-    credentials: true,
+    origin: '*',
+    credentials: false,
   });
 
   // Validación global de DTOs
