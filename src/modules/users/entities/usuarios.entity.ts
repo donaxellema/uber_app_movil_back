@@ -4,6 +4,7 @@ import { Persona } from './personas.entity';
 @Entity('usuarios')
 export class Usuario {
   @PrimaryGeneratedColumn()
+  @Index()
   usuario_id: number;
 
   @OneToOne(() => Persona)

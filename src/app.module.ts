@@ -9,6 +9,9 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
+import { UsuariosModule } from './usuarios/usuarios.module';
+import { UsuariosModule } from './src/usuarios/usuarios.module';
+import { UsuariosModule } from './modules/src/usuarios/usuarios.module';
 
 @Module({
   imports: [
@@ -32,6 +35,7 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
     // Módulos de la aplicación
     AuthModule,
     UsersModule,
+    UsuariosModule,
     // DriversModule,
     // VehiclesModule,
     // TripsModule,
