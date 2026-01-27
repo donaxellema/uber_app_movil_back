@@ -12,6 +12,20 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { UsuariosModule } from './src/usuarios/usuarios.module';
 import { UsuariosModule } from './modules/src/usuarios/usuarios.module';
+import { PersonasModule } from './personas/personas.module';
+import { PersonasModule } from './modules/src/personas/personas.module';
+import { ConductoresModule } from './modules/src/conductores/conductores.module';
+import { PerfilesModule } from './modules/src/perfiles/perfiles.module';
+import { CategoriasVehiculosModule } from './modules/src/categorias-vehiculos/categorias-vehiculos.module';
+import { DivisasModule } from './modules/src/divisas/divisas.module';
+import { DocumentosModule } from './modules/src/documentos/documentos.module';
+import { NotificacionesModule } from './modules/src/notificaciones/notificaciones.module';
+import { PagosViajeModule } from './modules/src/pagos_viaje/pagos_viaje.module';
+import { PushTokensModule } from './modules/src/push_tokens/push_tokens.module';
+import { RatingsModule } from './modules/src/ratings/ratings.module';
+import { ReclamosModule } from './modules/src/reclamos/reclamos.module';
+import { VehiculosModule } from './modules/src/vehiculos/vehiculos.module';
+import { ViajeModule } from './modules/src/viaje/viaje.module';
 
 @Module({
   imports: [
@@ -36,6 +50,19 @@ import { UsuariosModule } from './modules/src/usuarios/usuarios.module';
     AuthModule,
     UsersModule,
     UsuariosModule,
+    PersonasModule,
+    ConductoresModule,
+    PerfilesModule,
+    CategoriasVehiculosModule,
+    DivisasModule,
+    DocumentosModule,
+    NotificacionesModule,
+    PagosViajeModule,
+    PushTokensModule,
+    RatingsModule,
+    ReclamosModule,
+    VehiculosModule,
+    ViajeModule,
     // DriversModule,
     // VehiclesModule,
     // TripsModule,
