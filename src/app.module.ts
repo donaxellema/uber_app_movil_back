@@ -7,12 +7,10 @@ import { AppService } from './app.service';
 import { dataSourceOptions } from './config/database.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
+import { DriversModule } from './modules/drivers/drivers.module'; // Import DriversModule
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
-// import { UsuariosModule } from './usuarios/usuarios.module';
-// import { UsuariosModule } from './src/usuarios/usuarios.module';
 import { UsuariosModule } from './modules/src/usuarios/usuarios.module';
-// import { PersonasModule } from './personas/personas.module';
 import { PersonasModule } from './modules/src/personas/personas.module';
 import { ConductoresModule } from './modules/src/conductores/conductores.module';
 import { PerfilesModule } from './modules/src/perfiles/perfiles.module';
@@ -63,7 +61,7 @@ import { ViajeModule } from './modules/src/viaje/viaje.module';
     ReclamosModule,
     VehiculosModule,
     ViajeModule,
-    // DriversModule,
+    DriversModule,
     // VehiclesModule,
     // TripsModule,
     // PaymentsModule,
@@ -87,4 +85,4 @@ import { ViajeModule } from './modules/src/viaje/viaje.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }

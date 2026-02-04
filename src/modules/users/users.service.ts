@@ -41,9 +41,13 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
+  async save(user: User): Promise<User> {
+    return this.userRepository.save(user);
+  }
+
   async remove(id: string): Promise<void> {
     const user = await this.findOne(id);
-    await this.userRepository.softRemove(user);
+    await this.userRepository.softDelete(user.id);
   }
 
   async restore(id: string): Promise<User> {
