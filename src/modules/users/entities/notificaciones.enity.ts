@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGenerat
 import { Usuario } from "./usuarios.entity";
 
 @Entity('notificaciones')
-export class Notificacion {
+export class NotificacionE {
   @PrimaryGeneratedColumn()
   notifica_id: number;
 

@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto/create-usuario.dto';
 import { create } from 'domain';
-import { GetUser } from 'src/common/decorators';
+//import { GetUser } from 'src/common/decorators';
 import { UpdateUsuarioDto } from 'src/modules/src/usuarios/dto/update-usuario.dto/update-usuario.dto';
 
 
@@ -35,10 +35,10 @@ export class UsuariosController {
     return this.usuarioSservice.remove(+id);
   }
 
-  @Patch('id')
+  /* @Patch('id')
   updateProfile(@GetUser('id') id: string, @Body() updateUserDto: UpdateUsuarioDto) {
     return this.usuarioSservice.update(+id, updateUserDto);
-  }
+  } */
 
 }
 
