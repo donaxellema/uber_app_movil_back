@@ -7,7 +7,9 @@ import { AppService } from './app.service';
 import { dataSourceOptions } from './config/database.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
-import { DriversModule } from './modules/drivers/drivers.module'; // Import DriversModule
+import { DriversModule } from './modules/drivers/drivers.module';
+import { TripsModule } from './modules/trips/trips.module';
+import { GatewayModule } from './modules/gateway/gateway.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
 import { UsuariosModule } from './modules/src/usuarios/usuarios.module';
@@ -62,8 +64,8 @@ import { ViajeModule } from './modules/src/viaje/viaje.module';
     VehiculosModule,
     ViajeModule,
     DriversModule,
-    // VehiclesModule,
-    // TripsModule,
+    TripsModule,
+    GatewayModule,
     // PaymentsModule,
     // RewardsModule,
     // ReferralsModule,
