@@ -14,8 +14,8 @@ export class ConductoresService {
   ) {}
 
   create(data: Partial<Conductor>) {
-    const usuario = this.conductorRepo.create(data);
-    return this.conductorRepo.save(usuario);
+    const conductor = this.conductorRepo.create(data);
+    return this.conductorRepo.save(conductor);
   }
 
   findAll() {
