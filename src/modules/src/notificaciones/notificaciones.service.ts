@@ -10,7 +10,7 @@ export class NotificacionesService {}
 @Injectable()
 export class NotificacionesService {
   constructor(
-    @InjectRepository(Notification)
+    @InjectRepository(NotificacionE)
     private readonly notificaRepo: Repository<NotificacionE>,
   ) {}
 

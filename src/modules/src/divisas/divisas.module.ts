@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { DivisasService } from './divisas.service';
 import { DivisasController } from './divisas.controller';
+import { Divisa } from 'src/modules/users/entities/divisas.entity';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Divisa])],
   providers: [DivisasService],
-  controllers: [DivisasController]
+  controllers: [DivisasController],
+  exports: [DivisasService],
 })
 export class DivisasModule {}
