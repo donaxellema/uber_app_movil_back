@@ -116,6 +116,14 @@ export class TripsService {
     }
     trip.cancelledBy = trip.userId === userId ? 'user' : 'driver';
 
+    // Lógica de penalización si se cancela después de un tiempo
+    if (trip.acceptedAt) {
+      const timeSinceAccepted = (new Date().getTime() - trip.acceptedAt.getTime()) / 60000;
+      if (timeSinceAccepted > 2) { // 2 minutos
+        trip.cancellationFee = 1500; // Penalización base
+      }
+    }
+
     return this.tripRepository.save(trip);
   }
 
@@ -195,18 +203,29 @@ export class TripsService {
     return trip;
   }
 
-  // Calcular precio base
+  // Calcular precio base (ajustado por tarifa dinámica simple)
   private calculateBasePrice(category: VehicleCategory, distance: number): number {
     const rates = {
-      [VehicleCategory.ECONOMY]: { base: 5000, perKm: 1500 },
-      [VehicleCategory.COMFORT]: { base: 8000, perKm: 2000 },
-      [VehicleCategory.XL]: { base: 12000, perKm: 2500 },
-      [VehicleCategory.MOTO]: { base: 3000, perKm: 1000 },
-      [VehicleCategory.VAN]: { base: 15000, perKm: 3000 },
+      [VehicleCategory.ECONOMY]: { base: 5000, perKm: 1500, timeFactor: 1.0 },
+      [VehicleCategory.COMFORT]: { base: 8000, perKm: 2000, timeFactor: 1.2 },
+      [VehicleCategory.XL]: { base: 12000, perKm: 2500, timeFactor: 1.5 },
+      [VehicleCategory.MOTO]: { base: 3000, perKm: 1000, timeFactor: 0.8 },
+      [VehicleCategory.VAN]: { base: 15000, perKm: 3000, timeFactor: 1.8 },
     };
 
     const rate = rates[category];
-    return rate.base + rate.perKm * distance;
+    
+    // Simulación de demanda (tarifa dinámica por hora)
+    const hour = new Date().getHours();
+    let demandMultiplier = 1.0;
+    
+    // Horas pico: 7-9 am y 5-7 pm
+    if ((hour >= 7 && hour <= 9) || (hour >= 17 && hour <= 19)) {
+      demandMultiplier = 1.3;
+    }
+
+    const calculatedPrice = (rate.base + rate.perKm * distance) * demandMultiplier * rate.timeFactor;
+    return Math.round(calculatedPrice / 100) * 100; // Redondear a cientos
   }
 
   // Calcular distancia usando fórmula de Haversine

@@ -104,6 +104,9 @@ export class Trip extends AbstractEntity {
   @Column({ nullable: true, name: 'cancelled_by' })
   cancelledBy: string; // 'user' o 'driver'
 
+  @Column({ type: 'decimal', precision: 10, scale: 2, name: 'cancellation_fee', nullable: true })
+  cancellationFee: number;
+
   // Calificación
   @Column({ type: 'int', nullable: true })
   rating: number;

@@ -26,6 +26,7 @@ import { RatingsModule } from './modules/src/ratings/ratings.module';
 import { ReclamosModule } from './modules/src/reclamos/reclamos.module';
 import { VehiculosModule } from './modules/src/vehiculos/vehiculos.module';
 import { ViajeModule } from './modules/src/viaje/viaje.module';
+import { VehiclesModule } from './modules/vehicles/vehicles.module';
 
 @Module({
   imports: [
@@ -66,6 +67,7 @@ import { ViajeModule } from './modules/src/viaje/viaje.module';
     DriversModule,
     TripsModule,
     GatewayModule,
+    VehiclesModule,
     // PaymentsModule,
     // RewardsModule,
     // ReferralsModule,

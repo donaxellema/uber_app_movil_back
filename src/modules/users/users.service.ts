@@ -1,8 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateAdminDto } from './dto/create-admin.dto';
+import { UserStatus } from '../../common/enums';
 
 @Injectable()
 export class UsersService {
@@ -11,7 +14,10 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async findAll(): Promise<User[]> {
+  async findAll(role?: string): Promise<User[]> {
+    if (role) {
+      return this.userRepository.find({ where: { role: role as any } });
+    }
     return this.userRepository.find();
   }
 
@@ -36,7 +42,35 @@ export class UsersService {
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.findOne(id);
 
+    // Si se envía contraseña, hashearla (por si queremos actualizar pass de admin)
+    if (updateUserDto['password']) {
+        updateUserDto['password'] = await bcrypt.hash(updateUserDto['password'], 10);
+    }
     Object.assign(user, updateUserDto);
+
+    return this.userRepository.save(user);
+  }
+
+  async createAdmin(createAdminDto: CreateAdminDto): Promise<User> {
+    const existingUser = await this.findByEmail(createAdminDto.email);
+    if (existingUser) {
+      throw new ConflictException('User with that email already exists');
+    }
+
+    const { email, firstName, lastName, role, password } = createAdminDto;
+    // Si no manda password, se puede generar temporal (aquí usamos un dummy o requerido)
+    const passToHash = password || 'admin1234';
+    const hashedPassword = await bcrypt.hash(passToHash, 10);
+
+    const user = this.userRepository.create({
+      email,
+      firstName,
+      lastName,
+      password: hashedPassword,
+      role,
+      status: UserStatus.ACTIVE,
+      emailVerified: true,  // Al ser creado por sistema se puede dar por verificado
+    });
 
     return this.userRepository.save(user);
   }
