@@ -30,13 +30,24 @@ export class AuthService {
       throw new BadRequestException('Email or phone is required');
     }
 
-    // Verificar si el usuario ya existe
-    const existingUser = await this.userRepository.findOne({
-      where: email ? { email } : { phone },
-    });
+    // Verificar si el email ya existe
+    if (email) {
+      const existingEmail = await this.userRepository.findOne({
+        where: { email },
+      });
+      if (existingEmail) {
+        throw new ConflictException('Email already registered');
+      }
+    }
 
-    if (existingUser) {
-      throw new ConflictException('User already exists');
+    // Verificar si el teléfono ya existe
+    if (phone) {
+      const existingPhone = await this.userRepository.findOne({
+        where: { phone },
+      });
+      if (existingPhone) {
+        throw new ConflictException('Phone already registered');
+      }
     }
 
     // Hashear contraseña

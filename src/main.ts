@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
+import { SuccessInterceptor } from './common/interceptors/success.interceptor';
+import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,6 +26,12 @@ async function bootstrap() {
       },
     }),
   );
+
+  // Filtro global de excepciones
+  app.useGlobalFilters(new AllExceptionsFilter());
+
+  // Interceptor global de éxito
+  app.useGlobalInterceptors(new SuccessInterceptor());
 
   // Prefijo global de la API
   app.setGlobalPrefix('api/v1');
